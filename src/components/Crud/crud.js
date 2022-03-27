@@ -16,7 +16,7 @@ function CRUD(options) {
     // 请求数据的url
     url: '',
     // 表格数据
-    data: [],
+    Data: [],
     // 选择项
     selections: [],
     // 待查询的对象
@@ -84,9 +84,9 @@ function CRUD(options) {
     },
     page: {
       // 页码
-      page: 0,
+      page: 1,
       // 每页数据条数
-      size: 10,
+      limit: 10,
       // 总数据条数
       total: 0
     },
@@ -127,8 +127,9 @@ function CRUD(options) {
         crud.loading = true
         // 请求数据
         initData(crud.url, crud.getQueryParams()).then(data => {
-          crud.page.total = data.totalElements
-          crud.data = data.content
+          console.log(data);
+          crud.page.total = data.Data.Total
+          crud.Data = data.Data.Data
           crud.resetDataStatus()
           // time 毫秒后显示表格
           setTimeout(() => {
@@ -326,8 +327,8 @@ function CRUD(options) {
      */
     getQueryParams: function() {
       return {
-        page: crud.page.page - 1,
-        size: crud.page.size,
+        page: crud.page.page,
+        limit: crud.page.limit,
         sort: crud.sort,
         ...crud.query,
         ...crud.params
@@ -346,7 +347,7 @@ function CRUD(options) {
     },
     // 预防删除第二页最后一条数据时，或者多选删除第二页的数据时，页码错误导致请求无数据
     dleChangePage(size) {
-      if (crud.data.length === size && crud.page.page !== 1) {
+      if (crud.Data.length === size && crud.page.page !== 1) {
         crud.page.page -= 1
       }
     },
@@ -415,7 +416,7 @@ function CRUD(options) {
      */
     selectAllChange(selection) {
       // 如果选中的数目与请求到的数目相同就选中子节点，否则就清空选中
-      if (selection && selection.length === crud.data.length) {
+      if (selection && selection.length === crud.Data.length) {
         selection.forEach(val => {
           crud.selectChange(selection, val)
         })

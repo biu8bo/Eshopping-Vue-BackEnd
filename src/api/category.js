@@ -31,9 +31,11 @@ export function addCategory(data) {
     data
   })
 }
+
+
 export default {
     getCategory,
     editCategory,
     delCategory,
-    addCategory
+    addCategory,
 }

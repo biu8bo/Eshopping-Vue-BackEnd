@@ -67,7 +67,6 @@
                 <el-col :span="12">
                   <span>{{ materialgroupObj.name }}</span>
                   <span v-if="materialgroupObj.id != '-1'">
-                    <el-button size="small" type="text" class="el-icon-edit" style="margin-left: 10px;" @click="materialgroupEdit(materialgroupObj)">重命名</el-button>
                     <el-button size="small" type="text" class="el-icon-delete" style="margin-left: 10px;color: red" @click="materialgroupDelete(materialgroupObj)">删除</el-button>
                   </span>
                 </el-col>
@@ -256,12 +255,12 @@ export default {
       materialgroupPage({
         total: 0, // 总页数
         page: 1, // 当前页数
-        size: 100, // 每页显示多少条
+        limit: 100, // 每页显示多少条
         ascs: [], // 升序字段
         sort: 'create_time,desc'// 降序字段
       }).then(response => {
         this.materialgroupLoading = false
-        const materialgroupList = response.content
+        const materialgroupList = response.Data
         materialgroupList.unshift({
           id: '-1',
           name: '全部分组'
@@ -337,16 +336,16 @@ export default {
     getPage(page, params) {
       this.tableLoading = true
       getPage(Object.assign({
-        page: page.currentPage - 1,
-        size: page.pageSize,
+        page: page.currentPage,
+        limit: page.pageSize,
         descs: this.page.descs,
         ascs: this.page.ascs,
         sort: 'create_time,desc'
       }, {
         groupId: this.groupId
       })).then(response => {
-        const tableData = response.content
-        this.page.total = response.totalElements
+        const tableData = response.Data.Data
+        this.page.total = response.Data.Total
         this.page.currentPage = page.currentPage
         this.page.pageSize = page.pageSize
         this.tableData = tableData
@@ -431,7 +430,7 @@ export default {
         type: '1',
         groupId: this.groupId != '-1' ? this.groupId : null,
         name: file.name,
-        url: response.link
+        url: response.Data
       }).then(() => {
         this.resultNumber++
         if (fileList.length === this.resultNumber) {

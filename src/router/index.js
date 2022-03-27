@@ -24,13 +24,6 @@ const routerConfig = [{
       "meta": { "title": "商品新增", "icon": "anq", "noCache": true }
     },
     {
-      "name": "GoodsEdit",
-      "path": "goodsEdit/:id",
-      "hidden": true,
-      "component": "shop/goods/form",
-      "meta": { "title": "商品修改", "icon": "anq", "noCache": true }
-    },
-    {
       "name": "Cate", "path": "cate", "hidden": false,
       "component": "shop/cate/index",
       "meta": { "title": "商品分类", "icon": "icon", "noCache": true }
@@ -45,20 +38,6 @@ const routerConfig = [{
         "icon": "develop",
         "noCache": false
       }
-    },
-    {
-      "name": "ProductRule",
-      "path": "productRule",
-      "hidden": false,
-      "component": "shop/storeProductRule/index",
-      "meta": { "title": "商品规格", "icon": "mnt", "noCache": true }
-    },
-    {
-      "name": "Viewlog",
-      "path": "viewlog",
-      "hidden": false,
-      "component": "monitor/log/mlog",
-      "meta": { "title": "浏览记录", "icon": "log", "noCache": true }
     },
     {
       "name": "ProductRelation",
@@ -81,7 +60,17 @@ const routerConfig = [{
         "noCache": true
       }
     }]
-}]
+}, { "name": "会员管理", "path": "/member", "hidden": false, "redirect": "noredirect", "component": "Layout", "alwaysShow": true, "meta": { "title": "会员管理", "icon": "peoples", "noCache": true }, 
+"children": [{ "name": "Member", "path": "member", "hidden": false, "component": "user/index", "meta": { "title": "会员", "icon": "peoples", "noCache": true } }, 
+//  { "name": "Bill", "path": "bill", "hidden": false, "component": "user/bill", "meta": { "title": "用户账单", "icon": "list", "noCache": true } },
+  { "name": "OnlineMember", "path": "onlinet", "hidden": false, "component": "user/online/indext", "meta": { "title": "在线会员", "icon": "Steve-Jobs", "noCache": true } }] },
+  {"name":"订单管理","path":"/order","hidden":false,"redirect":"noredirect","component":"Layout","alwaysShow":true,"meta":{"title":"订单管理","icon":"lock","noCache":true},"children":[
+    {"name":"Order","path":"order","hidden":false,"component":"shop/order/index","meta":{"title":"订单","icon":"order","noCache":true}},
+    {"name":"Reply","path":"reply","hidden":false,"component":"shop/reply/index","meta":{"title":"评论管理","icon":"comment","noCache":true}},
+    {"name":"Express","path":"express","hidden":false,"component":"shop/express/index","meta":{"title":"物流快递","icon":"express","noCache":true}},
+    {"name":"AfterSeals","path":"afterSeals","hidden":false,"component":"shop/afterSeals/index","meta":{"title":"售后","icon":"order","noCache":true}},
+    {"name":"Detail","path":"detail/:id","hidden":true,"component":"shop/order/detail","meta":{"title":"订单详情","icon":"sqlMonitor","noCache":true}}]}
+]
 const whiteList = ['/login']// no redirect whitelist
 
 

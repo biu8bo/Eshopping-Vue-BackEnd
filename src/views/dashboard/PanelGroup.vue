@@ -70,6 +70,7 @@ export default {
   },
   mounted() {
     gett().then(res => {
+      res = res.Data
       this.count.todayPrice = res.todayPrice
       this.count.todayCount = res.todayCount
       this.count.proCount = res.proCount

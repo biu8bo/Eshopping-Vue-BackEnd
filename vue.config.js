@@ -7,7 +7,7 @@ function resolve(dir) {
 }
 
 const name = defaultSettings.title // 网址标题
-const port = 82 // 端口配置
+const port = 81 // 端口配置
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {

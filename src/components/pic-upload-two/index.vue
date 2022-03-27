@@ -41,7 +41,7 @@ export default {
     // 图片上传
     handleUploadSuccess(response, file, fileList) {
       console.log(file)
-      this.$emit('input', file.response.link)
+      this.$emit('input', file.response.Data)
     },
     // 限制图片上传大小
     beforeAvatarUpload(file) {

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getPage(query) {
   return request({
-    url: 'api/materialgroup/page',
+    url: 'api/materialgroup/list',
     method: 'get',
     params: query
   })

@@ -32,13 +32,15 @@ export default {
     }
   },
   mounted() {
-    this.initChart()
+    this.$nextTick(_=>{
+      this.initChart()
     this.__resizeHandler = debounce(() => {
       if (this.chart) {
         this.chart.resize()
       }
     }, 100)
     window.addEventListener('resize', this.__resizeHandler)
+    })
   },
   beforeDestroy() {
     if (!this.chart) {

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { add, edit, getCates } from '@/api/category'
+import { add, edit, getCategory } from '@/api/category'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import picUpload from '@/components/pic-upload'
@@ -107,9 +107,9 @@ export default {
         addTime: ''
       }
     },
-    getCates() {
-      getCates({ enabled: true }).then(res => {
-        this.cates = res.content
+    getCategory() {
+      getCategory({ enabled: true }).then(res => {
+        this.cates = res.Data
       })
     }
   }
