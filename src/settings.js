@@ -1,8 +1,9 @@
 module.exports = {
+  apiUrl:'',
   /**
    * @description 网站标题
    */
-  title: 'YSHOP-2.3',
+  title: '淘小宝商城后台管理',
   /**
    * @description 是否显示 tagsView
    */
@@ -26,7 +27,7 @@ module.exports = {
   /**
    * @description token key
    */
-  TokenKey: 'YSHOP-TOEKN',
+  TokenKey: 'TOEKN',
   /**
    * @description 请求超时时间，毫秒（默认2分钟）
    */

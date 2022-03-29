@@ -2,10 +2,10 @@
   <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '编辑'" width="500px">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
       <el-form-item label="订单号">
-        <el-input v-model="form.orderId" :disabled="true" style="width: 370px;" />
+        <el-input v-model="form.order_id" :disabled="true" style="width: 370px;" />
       </el-form-item>
       <el-form-item label="原始邮费">
-        <el-input v-model="form.totalPostage" :disabled="true" style="width: 370px;" />
+        <el-input v-model="form.total_postage" :disabled="true" style="width: 370px;" />
       </el-form-item>
       <el-form-item label="实际支付">
         <el-input v-model="form.payPrice" style="width: 370px;" />
@@ -96,6 +96,7 @@ export default {
     },
     doSubmit() {
       this.loading = true
+       this.form.pay_price= this.form.payPrice
       if (this.isAdd) {
         this.doAdd()
       } else this.doEdit()
@@ -116,6 +117,7 @@ export default {
       })
     },
     doEdit() {
+      this.form.pay_price= this.form.payPrice
       editOrder(this.form).then(res => {
         this.resetForm()
         this.$notify({

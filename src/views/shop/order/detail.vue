@@ -1,13 +1,13 @@
 <template>
-  <el-dialog :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '订单详情'" width="700px">
+  <el-dialog style="margin-top: -10vh;" :append-to-body="true" :close-on-click-modal="false" :before-close="cancel" :visible.sync="dialog" :title="isAdd ? '新增' : '订单详情'" width="700px">
     <el-card>
       <div slot="header">
         <span>收货信息</span>
       </div>
       <div class="text item">用户昵称:{{ form.nickname }}</div>
-      <div class="text item">收货人: {{ form.realName }}</div>
-      <div class="text item">联系电话: {{ form.userPhone }}</div>
-      <div class="text item">收货地址: {{ form.userAddress }}</div>
+      <div class="text item">收货人: {{ form.real_name }}</div>
+      <div class="text item">联系电话: {{ form.user_phone }}</div>
+      <div class="text item">收货地址: {{ form.user_address }}</div>
     </el-card>
     <el-card>
       <div slot="header">
@@ -15,31 +15,29 @@
       </div>
       <el-row :gutter="24">
         <el-col :span="12">
-          <div class="text item">订单编号: {{ form.orderId }}</div>
-          <div class="text item">商品总数: {{ form.totalNum }}</div>
-          <div class="text item">支付邮费: {{ form.totalPostage }}</div>
-          <div class="text item">实际支付: {{ form.payPrice }}</div>
-          <div class="text item">支付方式: {{ form.payTypeName }}</div>
+          <div class="text item">订单编号: {{ form.order_id }}</div>
+          <div class="text item">商品总数: {{ form.total_num }}</div>
+          <div class="text item">支付邮费: {{ form.total_postage }}</div>
+          <div class="text item">实际支付: {{ form.pay_price }}</div>
+          <div class="text item">支付方式: 余额</div>
         </el-col>
         <el-col :span="12">
-          <div class="text item">订单状态: {{ form.statusName }}</div>
-          <div class="text item">商品总价: {{ form.totalPrice }}</div>
-          <div class="text item">优惠券金额: {{ form.couponPrice }}</div>
-          <div class="text item">创建时间: {{ parseTime(form.addTime) }}</div>
-          <div class="text item">支付时间: {{ parseTime(form.payTime) }}</div>
+          <div class="text item">订单状态: {{ form.statusInfo }}</div>
+          <div class="text item">商品总价: {{ form.total_price }}</div>
+          <div class="text item">用户备注: {{ form.mark }}</div>
+          <div class="text item">创建时间: {{ parseTime(form.create_time) }}</div>
+          <div class="text item">支付时间: {{ parseTime(form.pay_time) }}</div>
         </el-col>
       </el-row>
     </el-card>
-    <el-card v-if="form.storeId == 0">
+    <el-card>
       <div slot="header">
         <span>物流信息</span>
       </div>
-      <div class="text item">快递公司:{{ form.deliveryName }}</div>
-      <div class="text item">快递单号:{{ form.deliveryId }}</div>
-
-      <div><el-button :loading="loading" type="primary" @click="express">查看物流</el-button></div>
+      <div class="text item">快递公司:{{ form.delivery_name }}</div>
+      <div class="text item">快递单号:{{ form.delivery_id }}</div>
       <div style="margin-top: 20px">
-      <el-timeline v-if="form.deliveryId && expressInfo.length > 0">
+      <el-timeline v-if="form.delivery_id && expressInfo.length > 0">
         <el-timeline-item
           v-for="(obj, index) in expressInfo"
           :key="index"

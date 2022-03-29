@@ -34,15 +34,14 @@ import PanelGroup from './dashboard/PanelGroup'
 import PanelGroupT from './dashboard/PanelGroupT'
 import PieChart from './dashboard/BarChartT'
 import BarChart from './dashboard/BarChart'
-import { count } from '@/api/visits'
+
 import YshopInfo from './dashboard/YshopInfo'
 import OrderCount from './dashboard/OrderCount'
 
 /**
    * 记录访问，只有页面刷新或者第一次加载才会记录
    */
-count().then(res => {
-})
+
 
 export default {
   name: 'Dashboard',

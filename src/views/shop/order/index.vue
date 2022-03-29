@@ -110,26 +110,7 @@
         :to-query="toQuery"
       />
 
-      <!--订单数据统计-->
-      <div class="order-caculate">
-        <a class="caculate-title"
-          >订单数 :
-          <span class="caculate-num">{{ caculateInfo.orderNum }}</span></a
-        >
-        <a class="caculate-title"
-          >商品数 :
-          <span class="caculate-num">{{ caculateInfo.storeNum }}</span></a
-        >
-        <a class="caculate-title"
-          >订单金额 :
-          <span class="caculate-num">{{ caculateInfo.orderPrice }}</span></a
-        >
-        <a class="caculate-title"
-          >客户数 :
-          <span class="caculate-num">{{ caculateInfo.userNum }}</span></a
-        >
-      </div>
-
+  
       <!--表格渲染-->
       <el-table
         ref="multipleTable"
@@ -180,17 +161,17 @@
           </template>
         </el-table-column>
         <el-table-column prop="pay_price" label="实际支付" />
-        <el-table-column prop="paid" label="支付状态">
+        <el-table-column prop="paid" label="订单状态">
           <template slot-scope="scope">
             <div v-if="scope.row.paid">
-              <el-tag style="cursor: pointer" :type="''">已支付</el-tag>
+              <el-tag style="cursor: pointer" :type="''">{{scope.row.statusInfo}}</el-tag>
             </div>
             <div v-else>
               <el-tag style="cursor: pointer" :type="'info'">未支付</el-tag>
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="addTime" width="160" label="创建时间">
+        <el-table-column prop="create_time" width="160" label="创建时间">
           <template slot-scope="scope">
             <span>{{ formatTime(new Date(scope.row.create_time),`{y}-{m}-{d} {h}:{m}:{s}`) }}</span>
           </template>
@@ -223,6 +204,7 @@
               split-button
               type="primary"
               trigger="click"
+              v-if="scope.row.is_del==false"
             >
               操作
               <el-dropdown-menu slot="dropdown">
@@ -242,7 +224,7 @@
                 </el-dropdown-item>
                 <el-dropdown-item>
                   <el-button
-                    v-if="scope.row._status == 2"
+                    v-if="scope.row.status == 0&&scope.row.paid==true"
                     v-permission="[
                       'admin',
                       'YXSTOREORDER_ALL',
@@ -255,7 +237,7 @@
                     去发货</el-button
                   >
                 </el-dropdown-item>
-                <el-dropdown-item>
+                <!-- <el-dropdown-item>
                   <el-button
                     v-if="scope.row._status == 3"
                     v-permission="[
@@ -269,8 +251,8 @@
                   >
                     立刻退款</el-button
                   >
-                </el-dropdown-item>
-                <el-dropdown-item v-if="scope.row._status == 1">
+                </el-dropdown-item> -->
+                <el-dropdown-item v-if="scope.row.status == 0&&scope.row.paid==false">
                   <el-button
                     v-permission="[
                       'admin',
@@ -284,7 +266,7 @@
                     修改订单</el-button
                   >
                 </el-dropdown-item>
-                <el-dropdown-item v-if="scope.row._status == 1">
+                <el-dropdown-item v-if="scope.row.status == 3">
                   <el-popover
                     :ref="scope.row.id"
                     v-permission="[
@@ -331,7 +313,7 @@
       <!--分页组件-->
       <el-pagination
         :total="total"
-        :current-page="page + 1"
+        :current-page="page"
         style="margin-top: 8px"
         layout="total, prev, pager, next, sizes"
         @size-change="sizeChange"
@@ -369,9 +351,9 @@ export default {
       batchExport: "",
       listContent: [],
       queryTypeOptions: [
-        { key: "orderId", display_name: "订单号" },
-        { key: "realName", display_name: "用户姓名" },
-        { key: "userPhone", display_name: "用户电话" },
+        { key: "order_id", display_name: "订单号" },
+        { key: "real_name", display_name: "用户姓名" },
+        { key: "user_phone", display_name: "用户电话" },
       ],
       statusOptions: [
         { value: "0", label: "未支付" },
@@ -429,7 +411,7 @@ export default {
         sort: sort,
         orderStatus: this.status,
         orderType: this.orderType,
-        addTime: this.createTime,
+        create_time: this.createTime,
         listContent: this.listContent,
       };
       const query = this.query;
@@ -465,41 +447,42 @@ export default {
       this.$refs.form.dialog = true;
     },
     edit(data) {
+ 
       this.isAdd = false;
       const _this = this.$refs.form;
       _this.form = {
         id: data.id,
-        orderId: data.orderId,
+        order_id: data.order_id,
         uid: data.uid,
-        realName: data.realName,
-        userPhone: data.userPhone,
-        userAddress: data.userAddress,
-        cartId: data.cartId,
-        freightPrice: data.freightPrice,
-        totalNum: data.totalNum,
-        totalPrice: data.totalPrice,
-        totalPostage: data.totalPostage,
-        payPrice: data.payPrice,
-        payPostage: data.payPostage,
-        deductionPrice: data.deductionPrice,
-        couponId: data.couponId,
-        couponPrice: data.couponPrice,
+        real_name: data.real_name,
+        user_phone: data.user_phone,
+        user_address: data.user_address,
+        cart_id: data.cart_id,
+        freight_price: data.freight_price,
+        total_num: data.total_num,
+        total_price: data.total_price,
+        totalPostage: data.total_postage,
+        pay_price: data.pay_price,
+        pay_postage: data.pay_postage,
+        deduction_price: data.deduction_price,
+        coupon_id: data.coupon_id,
+        coupon_price: data.coupon_price,
         paid: data.paid,
-        payTime: data.payTime,
-        payType: data.payType,
-        addTime: data.addTime,
+        pay_time: data.pay_time,
+        pay_type: data.pay_type,
+        create_time: data.create_time,
         status: data.status,
-        refundStatus: data.refundStatus,
+        refund_status: data.refund_status,
         refundReasonWapImg: data.refundReasonWapImg,
         refundReasonWapExplain: data.refundReasonWapExplain,
         refundReasonTime: data.refundReasonTime,
         refundReasonWap: data.refundReasonWap,
         refundReason: data.refundReason,
         refundPrice: data.refundPrice,
-        deliveryName: data.deliveryName,
+        delivery_name: data.delivery_name,
         deliverySn: data.deliverySn,
         deliveryType: data.deliveryType,
-        deliveryId: data.deliveryId,
+        delivery_id: data.delivery_id,
         gainIntegral: data.gainIntegral,
         useIntegral: data.useIntegral,
         backIntegral: data.backIntegral,
@@ -528,36 +511,37 @@ export default {
       const _this = this.$refs.form3;
       _this.form = {
         id: data.id,
-        orderId: data.orderId,
+        order_id: data.order_id,
         uid: data.uid,
-        realName: data.realName,
-        userPhone: data.userPhone,
-        userAddress: data.userAddress,
-        cartId: data.cartId,
-        freightPrice: data.freightPrice,
-        totalNum: data.totalNum,
-        totalPrice: data.totalPrice,
+
+        real_name: data.real_name,
+        user_phone: data.user_phone,
+        user_address: data.user_address,
+        cart_id: data.cart_id,
+        freight_price: data.freight_price,
+        total_num: data.total_num,
+        total_price: data.total_price,
         totalPostage: data.totalPostage,
-        payPrice: data.payPrice,
-        payPostage: data.payPostage,
-        deductionPrice: data.deductionPrice,
-        couponId: data.couponId,
-        couponPrice: data.couponPrice,
+        pay_price: data.pay_price,
+        pay_postage: data.pay_postage,
+        deduction_price: data.deduction_price,
+        coupon_id: data.coupon_id,
+        coupon_price: data.coupon_price,
         paid: data.paid,
-        payTime: data.payTime,
-        payType: data.payType,
-        addTime: data.addTime,
+        pay_time: data.pay_time,
+        pay_type: 'yue',
+        create_time: data.create_time,
         status: data.status,
-        refundStatus: data.refundStatus,
+        refund_status: data.refund_status,
         refundReasonWapImg: data.refundReasonWapImg,
         refundReasonWapExplain: data.refundReasonWapExplain,
         refundReasonTime: data.refundReasonTime,
         refundReasonWap: data.refundReasonWap,
         refundReason: data.refundReason,
         refundPrice: data.refundPrice,
-        deliveryName: data.deliveryName,
+        delivery_name: data.delivery_name,
         deliveryType: data.deliveryType,
-        deliveryId: data.deliveryId,
+        delivery_id: data.delivery_id,
         gainIntegral: data.gainIntegral,
         useIntegral: data.useIntegral,
         backIntegral: data.backIntegral,
@@ -586,36 +570,36 @@ export default {
       const _this = this.$refs.form4;
       _this.form = {
         id: data.id,
-        orderId: data.orderId,
+        order_id: data.order_id,
         uid: data.uid,
-        realName: data.realName,
-        userPhone: data.userPhone,
-        userAddress: data.userAddress,
-        cartId: data.cartId,
-        freightPrice: data.freightPrice,
-        totalNum: data.totalNum,
-        totalPrice: data.totalPrice,
+        real_name: data.real_name,
+        user_phone: data.user_phone,
+        user_address: data.user_address,
+        cart_id: data.cart_id,
+        freight_price: data.freight_price,
+        total_num: data.total_num,
+        total_price: data.total_price,
         totalPostage: data.totalPostage,
-        payPrice: data.payPrice,
-        payPostage: data.payPostage,
-        deductionPrice: data.deductionPrice,
-        couponId: data.couponId,
-        couponPrice: data.couponPrice,
+        pay_price: data.pay_price,
+        pay_postage: data.pay_postage,
+        deduction_price: data.deduction_price,
+        coupon_id: data.coupon_id,
+        coupon_price: data.coupon_price,
         paid: data.paid,
-        payTime: data.payTime,
-        payType: data.payType,
-        addTime: data.addTime,
+        pay_time: data.pay_time,
+        pay_type: data.pay_type,
+        create_time: data.create_time,
         status: data.status,
-        refundStatus: data.refundStatus,
+        refund_status: data.refund_status,
         refundReasonWapImg: data.refundReasonWapImg,
         refundReasonWapExplain: data.refundReasonWapExplain,
         refundReasonTime: data.refundReasonTime,
         refundReasonWap: data.refundReasonWap,
         refundReason: data.refundReason,
         refundPrice: data.refundPrice,
-        deliveryName: data.deliveryName,
+        delivery_name: data.delivery_name,
         deliveryType: data.deliveryType,
-        deliveryId: data.deliveryId,
+        delivery_id: data.delivery_id,
         gainIntegral: data.gainIntegral,
         useIntegral: data.useIntegral,
         backIntegral: data.backIntegral,
@@ -644,36 +628,36 @@ export default {
       const _this = this.$refs.form2;
       _this.form = {
         id: data.id,
-        orderId: data.orderId,
+        order_id: data.order_id,
         uid: data.uid,
-        realName: data.realName,
-        userPhone: data.userPhone,
-        userAddress: data.userAddress,
-        cartId: data.cartId,
-        freightPrice: data.freightPrice,
-        totalNum: data.totalNum,
-        totalPrice: data.totalPrice,
+        real_name: data.real_name,
+        user_phone: data.user_phone,
+        user_address: data.user_address,
+        cart_id: data.cart_id,
+        freight_price: data.freight_price,
+        total_num: data.total_num,
+        total_price: data.total_price,
         totalPostage: data.totalPostage,
-        payPrice: data.payPrice,
-        payPostage: data.payPostage,
-        deductionPrice: data.deductionPrice,
-        couponId: data.couponId,
-        couponPrice: data.couponPrice,
+        pay_price: data.pay_price,
+        pay_postage: data.pay_postage,
+        deduction_price: data.deduction_price,
+        coupon_id: data.coupon_id,
+        coupon_price: data.coupon_price,
         paid: data.paid,
-        payTime: data.payTime,
-        payType: data.payType,
-        addTime: data.addTime,
+        pay_time: data.pay_time,
+        pay_type: data.pay_type,
+        create_time: data.create_time,
         status: data.status,
-        refundStatus: data.refundStatus,
+        refund_status: data.refund_status,
         refundReasonWapImg: data.refundReasonWapImg,
         refundReasonWapExplain: data.refundReasonWapExplain,
         refundReasonTime: data.refundReasonTime,
         refundReasonWap: data.refundReasonWap,
         refundReason: data.refundReason,
         refundPrice: data.refundPrice,
-        deliveryName: data.deliveryName,
+        delivery_name: data.delivery_name,
         deliveryType: data.deliveryType,
-        deliveryId: data.deliveryId,
+        delivery_id: data.delivery_id,
         gainIntegral: data.gainIntegral,
         useIntegral: data.useIntegral,
         backIntegral: data.backIntegral,
@@ -702,44 +686,44 @@ export default {
       const _this = this.$refs.form1;
       _this.form = {
         id: data.id,
-        orderId: data.orderId,
-        payTypeName: data.payTypeName,
-        statusName: data.statusName,
+        order_id: data.order_id,
+        pay_typeName: '余额',
+        statusInfo: data.statusInfo,
         uid: data.uid,
-        realName: data.realName,
-        userPhone: data.userPhone,
-        userAddress: data.userAddress,
-        cartId: data.cartId,
-        freightPrice: data.freightPrice,
-        totalNum: data.totalNum,
-        totalPrice: data.totalPrice,
+        real_name: data.real_name,
+        user_phone: data.user_phone,
+        user_address: data.user_address,
+        cart_id: data.cart_id,
+        freight_price: data.freight_price,
+        total_num: data.total_num,
+        total_price: data.total_price,
         totalPostage: data.totalPostage,
-        payPrice: data.payPrice,
-        payPostage: data.payPostage,
-        deductionPrice: data.deductionPrice,
-        couponId: data.couponId,
-        couponPrice: data.couponPrice,
+        pay_price: data.pay_price,
+        pay_postage: data.pay_postage,
+        deduction_price: data.deduction_price,
+        coupon_id: data.coupon_id,
+        coupon_price: data.coupon_price,
         paid: data.paid,
-        payTime: data.payTime,
-        payType: data.payType,
-        addTime: data.addTime,
+        pay_time: data.pay_time,
+        pay_type: data.pay_type,
+        create_time: data.create_time,
         status: data.status,
-        refundStatus: data.refundStatus,
+        refund_status: data.refund_status,
         refundReasonWapImg: data.refundReasonWapImg,
         refundReasonWapExplain: data.refundReasonWapExplain,
         refundReasonTime: data.refundReasonTime,
         refundReasonWap: data.refundReasonWap,
         refundReason: data.refundReason,
         refundPrice: data.refundPrice,
-        deliveryName: data.deliveryName,
-        deliverySn: data.deliverySn,
-        deliveryType: data.deliveryType,
-        deliveryId: data.deliveryId,
+        delivery_name: data.delivery_name,
+        deliverySn: data.delivery_sn,
+        deliveryType: data.delivery_type,
+        delivery_id: data.delivery_id,
         gainIntegral: data.gainIntegral,
         useIntegral: data.useIntegral,
         backIntegral: data.backIntegral,
         mark: data.mark,
-        isDel: data.isDel,
+        isDel: data.is_del,
         unique: data.unique,
         remark: data.remark,
         merId: data.merId,
@@ -755,7 +739,7 @@ export default {
         isChannel: data.isChannel,
         isRemind: data.isRemind,
         isSystemDel: data.isSystemDel,
-        nickname: data.userDTO.nickname,
+
       };
       _this.dialog = true;
     },
@@ -788,8 +772,8 @@ export default {
         let user = [];
         val.forEach((item, index) => {
           orderNum += 1;
-          orderPrice += item.totalPrice;
-          storeNum += item.totalNum;
+          orderPrice += item.total_price;
+          storeNum += item.total_num;
           user.push(item.userDTO.account);
         });
         user = Array.from(new Set(user));
@@ -844,7 +828,7 @@ export default {
           } else {
             this.listContent = [];
             list.forEach((item) => {
-              this.listContent.push(item.orderId);
+              this.listContent.push(item.order_id);
             });
             this.listContent = JSON.stringify(this.listContent);
             this.beforeInit();

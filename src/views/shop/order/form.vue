@@ -25,7 +25,8 @@
 
 <script>
 
-import { add, edit, get } from '@/api/order'
+import { add, edit,deliver } from '@/api/order'
+import { get } from '@/api/express'
 export default {
   props: {
     isAdd: {
@@ -59,9 +60,16 @@ export default {
     },
     doSubmit() {
       this.loading = true
-      if (this.isAdd) {
-        this.doAdd()
-      } else this.doEdit()
+      deliver(this.form).then(res => {
+        this.resetForm()
+        this.$notify({
+          title: '添加成功',
+          type: 'success',
+          duration: 2500
+        })
+        this.loading = false
+        this.$parent.init()
+      })
     },
     doAdd() {
       add(this.form).then(res => {
@@ -151,8 +159,8 @@ export default {
       }
     },
     get() {
-      get().then(res => {
-        this.express = res.content
+      get({limit:100,page:1}).then(res => {
+        this.express = res.Data.Data
       }).catch(err => {
         this.loading = false
         console.log(err.response.data.message)

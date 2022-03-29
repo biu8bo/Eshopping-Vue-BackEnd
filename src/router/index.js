@@ -68,7 +68,6 @@ const routerConfig = [{
     {"name":"Order","path":"order","hidden":false,"component":"shop/order/index","meta":{"title":"订单","icon":"order","noCache":true}},
     {"name":"Reply","path":"reply","hidden":false,"component":"shop/reply/index","meta":{"title":"评论管理","icon":"comment","noCache":true}},
     {"name":"Express","path":"express","hidden":false,"component":"shop/express/index","meta":{"title":"物流快递","icon":"express","noCache":true}},
-    {"name":"AfterSeals","path":"afterSeals","hidden":false,"component":"shop/afterSeals/index","meta":{"title":"售后","icon":"order","noCache":true}},
     {"name":"Detail","path":"detail/:id","hidden":true,"component":"shop/order/detail","meta":{"title":"订单详情","icon":"sqlMonitor","noCache":true}}]}
 ]
 const whiteList = ['/login']// no redirect whitelist
