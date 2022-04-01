@@ -54,7 +54,7 @@
             :value="item.key"
           />
         </el-select>
-        <el-select
+        <!-- <el-select
           v-model="orderType"
           clearable
           placeholder="订单类型"
@@ -67,7 +67,7 @@
             :label="item.label"
             :value="item.value"
           />
-        </el-select>
+        </el-select> -->
         <el-date-picker
           v-model="createTime"
           :default-time="['00:00:00', '23:59:59']"
@@ -93,7 +93,7 @@
           class="filter-item"
           size="mini"
           icon="el-icon-refresh"
-          @click="toQuery"
+          @click="refreshQuery"
           >刷新</el-button
         >
       </div>
@@ -110,7 +110,6 @@
         :to-query="toQuery"
       />
 
-  
       <!--表格渲染-->
       <el-table
         ref="multipleTable"
@@ -164,7 +163,9 @@
         <el-table-column prop="paid" label="订单状态">
           <template slot-scope="scope">
             <div v-if="scope.row.paid">
-              <el-tag style="cursor: pointer" :type="''">{{scope.row.statusInfo}}</el-tag>
+              <el-tag style="cursor: pointer" :type="''">{{
+                scope.row.statusInfo
+              }}</el-tag>
             </div>
             <div v-else>
               <el-tag style="cursor: pointer" :type="'info'">未支付</el-tag>
@@ -173,7 +174,12 @@
         </el-table-column>
         <el-table-column prop="create_time" width="160" label="创建时间">
           <template slot-scope="scope">
-            <span>{{ formatTime(new Date(scope.row.create_time),`{y}-{m}-{d} {h}:{m}:{s}`) }}</span>
+            <span>{{
+              formatTime(
+                new Date(scope.row.create_time),
+                `{y}-{m}-{d} {h}:{m}:{s}`
+              )
+            }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -204,7 +210,7 @@
               split-button
               type="primary"
               trigger="click"
-              v-if="scope.row.is_del==false"
+              v-if="scope.row.is_del == false"
             >
               操作
               <el-dropdown-menu slot="dropdown">
@@ -224,7 +230,7 @@
                 </el-dropdown-item>
                 <el-dropdown-item>
                   <el-button
-                    v-if="scope.row.status == 0&&scope.row.paid==true"
+                    v-if="scope.row.status == 0 && scope.row.paid == true"
                     v-permission="[
                       'admin',
                       'YXSTOREORDER_ALL',
@@ -252,7 +258,9 @@
                     立刻退款</el-button
                   >
                 </el-dropdown-item> -->
-                <el-dropdown-item v-if="scope.row.status == 0&&scope.row.paid==false">
+                <el-dropdown-item
+                  v-if="scope.row.status == 0 && scope.row.paid == false"
+                >
                   <el-button
                     v-permission="[
                       'admin',
@@ -405,13 +413,20 @@ export default {
     beforeInit() {
       this.url = "api/order/get";
       const sort = "id,desc";
+      let startTime, endTime;
+      if (this.createTime) {
+        startTime = this.createTime[0];
+        endTime = this.createTime[1];
+
+      }
       this.params = {
         page: this.page,
         limit: this.size,
         sort: sort,
         orderStatus: this.status,
         orderType: this.orderType,
-        create_time: this.createTime,
+        startTime,
+        endTime,
         listContent: this.listContent,
       };
       const query = this.query;
@@ -442,12 +457,17 @@ export default {
           console.log(err.response.data.message);
         });
     },
+    refreshQuery(){
+      this.createTime="";
+      this.query.type=""
+      this.query.value="";
+      this.toQuery();
+    },
     add() {
       this.isAdd = true;
       this.$refs.form.dialog = true;
     },
     edit(data) {
- 
       this.isAdd = false;
       const _this = this.$refs.form;
       _this.form = {
@@ -529,7 +549,7 @@ export default {
         coupon_price: data.coupon_price,
         paid: data.paid,
         pay_time: data.pay_time,
-        pay_type: 'yue',
+        pay_type: "yue",
         create_time: data.create_time,
         status: data.status,
         refund_status: data.refund_status,
@@ -687,7 +707,7 @@ export default {
       _this.form = {
         id: data.id,
         order_id: data.order_id,
-        pay_typeName: '余额',
+        pay_typeName: "余额",
         statusInfo: data.statusInfo,
         uid: data.uid,
         real_name: data.real_name,
@@ -739,7 +759,6 @@ export default {
         isChannel: data.isChannel,
         isRemind: data.isRemind,
         isSystemDel: data.isSystemDel,
-
       };
       _this.dialog = true;
     },
