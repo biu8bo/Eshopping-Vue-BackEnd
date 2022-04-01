@@ -91,8 +91,8 @@ export default {
             }
           }],
           series: [{
-            name: 'pageA',
-            type: 'line',
+            name: '日交易数',
+            type: 'bar',
             stack: 'vistors',
             barWidth: '60%',
             data: num,

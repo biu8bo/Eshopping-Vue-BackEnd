@@ -93,7 +93,7 @@ export default {
             }
           }],
           series: [{
-            name: 'pageA',
+            name: '日成交额',
             type: 'line',
             stack: 'vistors',
             barWidth: '60%',
