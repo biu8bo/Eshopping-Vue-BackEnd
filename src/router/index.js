@@ -60,15 +60,29 @@ const routerConfig = [{
         "noCache": true
       }
     }]
-}, { "name": "会员管理", "path": "/member", "hidden": false, "redirect": "noredirect", "component": "Layout", "alwaysShow": true, "meta": { "title": "会员管理", "icon": "peoples", "noCache": true }, 
-"children": [{ "name": "Member", "path": "member", "hidden": false, "component": "user/index", "meta": { "title": "会员", "icon": "peoples", "noCache": true } }, 
-//  { "name": "Bill", "path": "bill", "hidden": false, "component": "user/bill", "meta": { "title": "用户账单", "icon": "list", "noCache": true } },
-  { "name": "OnlineMember", "path": "onlinet", "hidden": false, "component": "user/online/indext", "meta": { "title": "在线会员", "icon": "Steve-Jobs", "noCache": true } }] },
-  {"name":"订单管理","path":"/order","hidden":false,"redirect":"noredirect","component":"Layout","alwaysShow":true,"meta":{"title":"订单管理","icon":"lock","noCache":true},"children":[
-    {"name":"Order","path":"order","hidden":false,"component":"shop/order/index","meta":{"title":"订单","icon":"order","noCache":true}},
-    {"name":"Reply","path":"reply","hidden":false,"component":"shop/reply/index","meta":{"title":"评论管理","icon":"comment","noCache":true}},
-    {"name":"Express","path":"express","hidden":false,"component":"shop/express/index","meta":{"title":"物流快递","icon":"express","noCache":true}},
-    {"name":"Detail","path":"detail/:id","hidden":true,"component":"shop/order/detail","meta":{"title":"订单详情","icon":"sqlMonitor","noCache":true}}]}
+}, {
+  "name": "会员管理", "path": "/member", "hidden": false, "redirect": "noredirect", "component": "Layout", "alwaysShow": true, "meta": { "title": "会员管理", "icon": "peoples", "noCache": true },
+  "children": [
+    { "name": "Member", "path": "member", "hidden": false, "component": "user/index", "meta": { "title": "会员", "icon": "peoples", "noCache": true } },
+    //  { "name": "Bill", "path": "bill", "hidden": false, "component": "user/bill", "meta": { "title": "用户账单", "icon": "list", "noCache": true } },
+    { "name": "OnlineMember", "path": "onlinet", "hidden": false, "component": "user/online/indext", "meta": { "title": "在线会员", "icon": "Steve-Jobs", "noCache": true } }
+  ]
+},
+{
+  "name": "订单管理", "path": "/order", "hidden": false, "redirect": "noredirect", "component": "Layout", "alwaysShow": true, "meta": { "title": "订单管理", "icon": "lock", "noCache": true },
+  "children": [
+    { "name": "Order", "path": "order", "hidden": false, "component": "shop/order/index", "meta": { "title": "订单", "icon": "order", "noCache": true } },
+    { "name": "Reply", "path": "reply", "hidden": false, "component": "shop/reply/index", "meta": { "title": "评论管理", "icon": "comment", "noCache": true } },
+    { "name": "Express", "path": "express", "hidden": false, "component": "shop/express/index", "meta": { "title": "物流快递", "icon": "express", "noCache": true } },
+    { "name": "Detail", "path": "detail/:id", "hidden": true, "component": "shop/order/detail", "meta": { "title": "订单详情", "icon": "sqlMonitor", "noCache": true } }
+  ]
+},
+{"name":"营销管理","path":"/activity","hidden":false,"redirect":"noredirect","component":"Layout","alwaysShow":true,"meta":{"title":"营销管理","icon":"yingxiao","noCache":true},
+"children":[
+  {"name":"SecKillEdit","path":"secKillEdit/:id","hidden":true,"component":"activity/seckill/form","meta":{"title":"秒杀商品修改","icon":"anq","noCache":true}},
+  {"name":"Seckill","path":"seckill","hidden":false,"component":"activity/seckill/index","meta":{"title":"秒杀产品","icon":"seckill","noCache":true}},
+  {"name":"Seckillconfig","path":"seckillconfig","hidden":false,"component":"activity/seckill/seckill","meta":{"title":"秒杀配置","icon":"configure","noCache":true}},
+  {"name":"SecKillAdd","path":"secKillAdd","hidden":true,"component":"activity/seckill/form","meta":{"title":"秒杀商品添加","icon":null,"noCache":true}}]},
 ]
 const whiteList = ['/login']// no redirect whitelist
 

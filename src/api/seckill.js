@@ -1,18 +1,16 @@
 import request from '@/utils/request'
-import qs from 'qs'
 
-export function del(data) {
+export function del(id) {
   return request({
-    url:"",
-    method: 'post',
-    data
+    url:"api/delSeckill/"+id,
+    method: 'Delete',
   })
 }
 
 
 export function add(data) {
   return request({
-    url:"",
+    url:"api/addSeckill",
     method: 'post',
     data
   })
@@ -21,13 +19,31 @@ export function add(data) {
 
 export function  edit(data) {
   return request({
-    url:"",
+    url:"api/addSeckill",
     method: 'post',
+    data
+  })
+}
+
+export function  editSeckillTime(data) {
+  return request({
+    url:"api/editSeckillTime",
+    method: 'put',
+    data
+  })
+}
+
+export function  aditSeckillTime(data) {
+  return request({
+    url:"api/addSeckillTime",
+    method: 'put',
     data
   })
 }
 
 export default{
     del,
-    edit,add
+    edit,add,
+    editSeckillTime,
+    aditSeckillTime
 }

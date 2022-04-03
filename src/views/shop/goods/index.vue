@@ -232,7 +232,7 @@ export default {
       _this.dialog = true
     },
     editD(TData) {
-         let data = TData.Product
+      let data = TData.Product
       this.isAdd = false
       const _this = this.$refs.form4
       _this.form = {
