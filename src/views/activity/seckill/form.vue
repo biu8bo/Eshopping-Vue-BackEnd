@@ -211,6 +211,13 @@ export default {
     doSubmit() {
       this.loading = true;
       this.form.product_id = this.form.productId;
+      this.form.image = this.form.imageArr[0]
+      let str = "";
+      this.form.slider_imageArr.forEach(e=>{
+        str+=e+","
+      })
+      str = str.substr(0,str.length-1);
+      this.form.images = str;
       if (this.isAdd) {
         this.doAdd();
       } else this.doEdit();

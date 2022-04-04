@@ -235,12 +235,13 @@ export default {
       let data = TData.Product
       this.isAdd = false
       const _this = this.$refs.form4
+      console.log(data.image);
       _this.form = {
         productId: data.id,
         mer_id: data.mer_id,
         image: data.image,
         images: data.slider_image,
-        imageArr: data.slider_image.split(','),
+        imageArr: [data.image],
         slider_imageArr: data.slider_image.split(','),
         title: data.store_name,
         info: data.store_info,

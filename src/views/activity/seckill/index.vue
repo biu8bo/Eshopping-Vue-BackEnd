@@ -220,7 +220,8 @@ export default {
     edit(data) {
       this.isAdd = false;
       const _this = this.$refs.form;
-      _this.form = {
+
+_this.form = {
         id: data.id,
         productId: data.productId,
         image: data.image,
