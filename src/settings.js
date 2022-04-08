@@ -1,5 +1,8 @@
 module.exports = {
+  api: 'http://localhost:8888',
   apiUrl:'',
+  swaggerPath:"http://localhost:8888/swagger/ui/index#/",
+  webSocketUrl:"ws://127.0.0.1:8008",
   /**
    * @description 网站标题
    */

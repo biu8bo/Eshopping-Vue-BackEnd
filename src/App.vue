@@ -5,7 +5,11 @@
 </template>
 
 <script>
+import {initWebSokcet} from "@/utils/webSocket"
 export default {
-  name: 'App'
+  name: 'App',
+  created(){
+    initWebSokcet();
+  }
 }
 </script>

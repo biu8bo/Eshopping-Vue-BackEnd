@@ -77,12 +77,28 @@ const routerConfig = [{
     { "name": "Detail", "path": "detail/:id", "hidden": true, "component": "shop/order/detail", "meta": { "title": "订单详情", "icon": "sqlMonitor", "noCache": true } }
   ]
 },
-{"name":"营销管理","path":"/activity","hidden":false,"redirect":"noredirect","component":"Layout","alwaysShow":true,"meta":{"title":"营销管理","icon":"yingxiao","noCache":true},
-"children":[
-  {"name":"SecKillEdit","path":"secKillEdit/:id","hidden":true,"component":"activity/seckill/form","meta":{"title":"秒杀商品修改","icon":"anq","noCache":true}},
-  {"name":"Seckill","path":"seckill","hidden":false,"component":"activity/seckill/index","meta":{"title":"秒杀产品","icon":"seckill","noCache":true}},
-  {"name":"Seckillconfig","path":"seckillconfig","hidden":false,"component":"activity/seckill/seckill","meta":{"title":"秒杀配置","icon":"configure","noCache":true}},
-  {"name":"SecKillAdd","path":"secKillAdd","hidden":true,"component":"activity/seckill/form","meta":{"title":"秒杀商品添加","icon":null,"noCache":true}}]},
+{
+  "name": "营销管理", "path": "/activity", "hidden": false, "redirect": "noredirect", "component": "Layout", "alwaysShow": true, "meta": { "title": "营销管理", "icon": "yingxiao", "noCache": true },
+  "children": [
+    { "name": "SecKillEdit", "path": "secKillEdit/:id", "hidden": true, "component": "activity/seckill/form", "meta": { "title": "秒杀商品修改", "icon": "anq", "noCache": true } },
+    { "name": "Seckill", "path": "seckill", "hidden": false, "component": "activity/seckill/index", "meta": { "title": "秒杀产品", "icon": "seckill", "noCache": true } },
+    { "name": "Seckillconfig", "path": "seckillconfig", "hidden": false, "component": "activity/seckill/seckill", "meta": { "title": "秒杀配置", "icon": "configure", "noCache": true } },
+    { "name": "SecKillAdd", "path": "secKillAdd", "hidden": true, "component": "activity/seckill/form", "meta": { "title": "秒杀商品添加", "icon": null, "noCache": true } }]
+},
+
+
+{
+  "name": "系统管理", "path": "/system", "hidden": false, "redirect": "noredirect", "component": "Layout", "alwaysShow": true,
+  "meta": { "title": "系统管理", "icon": "system", "noCache": true },
+  "children": [
+    {
+      "name": "User", "path": "indexConfig", "hidden": false, "component": "system/indexConfig", "meta": { "title": "首页配置", "icon": "peoples", "noCache": true }
+    },
+    {
+      "name": "swagger", "path": "swagger", "hidden": false, "component": "system/swagger", "meta": { "title": "接口文档", "icon": "peoples", "noCache": true }
+    }
+  ]
+}
 ]
 const whiteList = ['/login']// no redirect whitelist
 

@@ -1,3 +1,5 @@
+import Config from '@/settings'
+
 const getters = {
   deployUploadApi: state => state.api.deployUploadApi,
   databaseUploadApi: state => state.api.databaseUploadApi,
@@ -20,6 +22,6 @@ const getters = {
   updateAvatarApi: state => state.api.updateAvatarApi,
   qiNiuUploadApi: state => state.api.qiNiuUploadApi,
   sqlApi: state => state.api.sqlApi,
-  swaggerApi: state => state.api.swaggerApi
+  swaggerApi: state => Config.swaggerPath
 }
 export default getters
