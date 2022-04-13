@@ -75,9 +75,9 @@
       <el-form-item label="成本价">
         <el-input v-model="form.cost" />
       </el-form-item>
-      <el-form-item label="邮费">
+      <!-- <el-form-item label="邮费">
         <el-input v-model="form.postage" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="排序">
         <el-input v-model="form.sort" />
       </el-form-item>
@@ -93,12 +93,12 @@
           >否</el-radio
         >
       </el-form-item>
-      <el-form-item label="促销单品">
+      <!-- <el-form-item label="促销单品">
         <el-radio v-model="form.is_benefit" :label="true">是</el-radio>
         <el-radio v-model="form.is_benefit" :label="false" style="width: 200px"
           >否</el-radio
         >
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="精品推荐">
         <el-radio v-model="form.is_best" :label="true">是</el-radio>
         <el-radio v-model="form.is_best" :label="false" style="width: 200px"
@@ -111,12 +111,12 @@
           >否</el-radio
         >
       </el-form-item>
-      <el-form-item label="是否包邮">
+      <!-- <el-form-item label="是否包邮">
         <el-radio v-model="form.is_postage" :label="true">是</el-radio>
         <el-radio v-model="form.is_postage" :label="false" style="width: 200px"
           >否</el-radio
         >
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="优品推荐">
         <el-radio v-model="form.is_good" :label="true">是</el-radio>
         <el-radio v-model="form.is_good" :label="false" style="width: 200px"
@@ -279,13 +279,13 @@ export default {
         cate_id: true,
         Category: {},
         price: false,
-        vip_price: false,
-        ot_price: false,
-        postage: false,
+        vip_price: 0,
+        ot_price: 0,
+        postage: 0,
         unit_name: "",
-        sort: false,
-        sales: false,
-        stock: false,
+        sort: 0,
+        sales: 0,
+        stock: 0,
         is_show: true,
         is_hot: false,
         is_benefit: false,

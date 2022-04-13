@@ -12,7 +12,7 @@
             margin-bottom: 10px;
           "
         >
-          单商户电商系统
+          淘小宝-电商系统
         </h3>
         <ul
           style="
@@ -23,9 +23,10 @@
             padding-left: 20px;
           "
         >
-          <li>Springboot2</li>
-          <li>MybatisPlus</li>
-          <li>SpringSecurity</li>
+          <li>.Net Mvc WebApi</li>
+          <li>EntityFramework</li>
+          <li>Mysql</li>
+          <li>ElementUI</li>
           <li>Jwt</li>
           <li>Redis</li>
           <li>Vue</li>
